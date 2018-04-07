@@ -25,7 +25,7 @@ def validate():
     error = "Your password cannot contain spaces"
     emailerror = "The email you entered is invalid"
 
-    if email.strip != "":
+    if email.strip() != "":
         for y in email:
             if y in string.whitespace:
                 return render_template('edit.html', emailerror=emailerror)
@@ -37,8 +37,15 @@ def validate():
                 p = p + 1
                 if p != 1:
                     return render_template('edit.html', emailerror=emailerror, user=user, email=email)
+            
             elif len(email) < 3 or len(email) > 20:
                 return render_template('edit.html', emailerror=emailerror, user=user, email=email)
+        if "@" not in email:
+            return render_template('edit.html', emailerror=emailerror, user=user, email=email)
+        if "." not in email:
+            return render_template('edit.html', emailerror=emailerror, user=user, email=email)
+
+    
 
     for x in password:
         if x in string.whitespace:
